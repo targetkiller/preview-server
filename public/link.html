@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=320,initial-scale=1,minimum-scale=1, maximum-scale=1, user-scalable=no">
+	<title>多终端字体预览</title>
+	<link rel="stylesheet" type="text/css" href="/css/link.css">
+</head>
+<body>
+	<div class="container">
+		<div class="uid-wrap">UID:<span id="uid">无</span>
+			<a href="javascript:;" id="logout">退出登录</a>
+		</div>
+		<div class="ua-wrap">设备:<span id="ua">无</span></div>
+		<div class="opt-wrap">
+			选择设备类型:
+			<select id="type">
+				<option value="0">PC</option>
+				<option value="1">MAC</option>
+				<option value="2">IOS</option>
+				<option value="3">ANDROID</option>
+			</select>
+			<button id="link">连接</button>
+		</div>
+		<div class="qrcode-wrap hide">
+			<img src="images/linkqrcode.png">
+		</div>
+		<div class="messages-wrap" >
+			<ul id="messages"></ul>
+			<label class="brand">报表</label>
+		</div>
+		<canvas id="canvas" width="448" height="242" class="hide"></canvas>
+	</div>
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="/js/jquery.js"></script>
+	<script type="text/javascript">
+		// var host = 'ws://localhost:3000';
+		var socket;
+		var terminals = new Array();
+		var fromTerm;//请求终端
+		var myType;//请求类型
+		var uid=0;
+		var testFlag;
+		var testLinkTime = 5000;
+		var testServerLinkInter;
+		var testServerLinkFlag = 0;//0表示正常，1表示断开
+
+		var defaultText = "唧唧复唧唧，木兰当户织。不闻机杼声，惟闻女叹息。\n问女何所思，问女何所忆。女亦无所思，女亦无所忆。\n昨夜见军帖，可汗大点兵。军书十二卷，卷卷有爷名。\n阿爷无大儿，木兰无长兄。愿为市鞍马，从此替爷征。\n东市买骏马，西市买鞍鞯，南市买辔头，北市买长鞭。\n旦辞爷娘去，暮宿黄河边。\n不闻爷娘唤女声，但闻黄河流水鸣溅溅。\n旦辞黄河去，暮至黑山头。\n不闻爷娘唤女声，但闻燕山胡骑鸣啾啾。";
+		var wordStr = defaultText;//文本
+		var family = "Arial";//字体
+		var size = "14px";//尺寸
+		var weight = "normal";//字重
+		var style = "normal";//字形
+		var color = "#000";//颜色
+		var bgcolor = "#fff";//背景色
+		var lineheight = "16px";//行高
+
+		// 检查是否加在到socket.js
+		if(io === undefined){
+			var io;
+			loadError();
+			delete io;
+		}
+		else{
+			socket = io.connect();
+		}
+
+		// 在onunload调用前提示
+		window.onbeforeunload = function(event) { 
+			return "刷新或离开页面可能丢失连接，您确定要离开此页面吗？"; 
+		}
+		// 退出登录
+		window.onunload = function(event) {
+			if(uid){
+				socket.disconnect();
+			}
+		}
+
+		$('#logout').click(function(){
+			if(uid){
+				socket.disconnect();
+				$('#messages').prepend($('<li class="red">').text('该设备退出登录，请刷新以重新连接。'));
+
+			}
+		});
+
+		// 刷新页面
+		$('#reload').click(function(){
+			location.reload();
+		});
+
+		// 页面载入自动连接
+		window.onload = function(){
+			if(uid==0||!uid){
+				uid = getUid();
+				myType = getUAType();//得到类型
+				socket.emit('login',
+				{
+					'uid':uid,
+					'type':myType
+				});
+				$("#uid").text(uid);
+			}
+			return false;
+		};
+
+		$('#link').click(function(){
+			if(uid==0||!uid){
+				uid = getUid();
+				var type = $('#type').val();
+				myType = type;
+				socket.emit('login',
+				{
+					'uid':uid,
+					'type':type
+				});
+				$("#uid").text(uid);
+			}
+
+			return false;
+		});
+		
+		function getUAType(){
+			var ua = navigator && navigator.userAgent;
+			// 如果ua存在
+			if(ua){
+				if(ua.indexOf('Windows')!=-1){
+					$("#ua").text('PC');
+					return 0;
+				}
+				else if(ua.indexOf('Macintosh')!=-1){
+					$("#ua").text('MAC');
+					return 1;
+				}
+				else if(ua.indexOf('iPhone')!=-1){
+					$("#ua").text('IOS');
+					return 2;
+				}
+				else if(ua.indexOf('iPad')!=-1){
+					$("#ua").text('IOS');
+					return 2;
+				}
+				else if(ua.indexOf('iPod')!=-1){
+					$("#ua").text('IOS');
+					return 2;
+				}
+				else if(ua.indexOf('Android')!=-1){
+					$("#ua").text('ANDROID');
+					return 3;
+				}
+				else{
+					$("#ua").text('PC');
+					return 0;
+				}
+			}
+			else{
+				// 若不支持自动匹配，允许用户手动选择
+				$('.opt-wrap').removeClass('hide');
+			}
+		}
+
+		function setInfo(info){
+			wordStr = info.words;
+			family = info.family;
+			size = info.size;
+			weight = info.weight;
+			style = info.style;
+			lineheight = info.lineheight;
+			color = info.color;
+			bgcolor = info.bgcolor;
+		}
+
+		function getInfo(){
+			var info = {};
+			wordStr = $('#content').val();
+
+			info.words = wordStr;
+			info.family = family;
+			info.size = size;
+			info.weight = weight;
+			info.style = style;
+			info.color = color;
+			info.bgcolor = bgcolor;
+			info.lineheight = lineheight;
+			return info;
+		}
+
+		// 加载异常
+		function loadError(){
+			$('#messages').prepend($('<li class="red">').text('请先检查服务器连接情况，在刷新页面重试。'));
+			$('#link').addClass('hide');
+			$('#reload').removeClass('hide');
+			uid = 0;
+		}
+
+		// 生成uid
+		function getUid(){
+			return new Date().getTime()+""+Math.floor(Math.random()*899+100);
+		}
+
+		function getTermsName(id){
+			var type;
+			switch(parseInt(id)){
+				case 0: type = "PC";break;
+				case 1: type = "MAC";break;
+				case 2: type = "IOS";break;
+				case 3: type = "ANDROID";break;
+				case 4: type = "USER";break;
+				default:type = "USER";break;
+			}
+			return type;
+		}
+
+		function getTermsStatus(status){
+			var tmp;
+			switch(parseInt(status)){
+				case 0: tmp = "空闲";break;
+				case 1: tmp = "忙碌";break;
+				default: tmp = "空闲";break;
+			}
+			return tmp;
+		}
+
+		function draw(){
+			// init canvas
+			if(document.getElementById("canvas")==null){
+				var canvas = document.createElement("canvas");
+				canvas.setAttribute("id","canvas");
+				canvas.width = 448;
+				canvas.height = 242;
+				var body =  document.getElementsByTagName("body")[0];
+				body.insertBefore(canvas, body.childNodes[0]);
+			}
+			var cvs = document.getElementById("canvas");
+			var ctx = cvs.getContext('2d');
+
+			//clear 
+			ctx.clearRect(0,0,448,242);
+
+			//draw background
+			ctx.fillStyle = bgcolor;
+			ctx.fillRect(0,0,448,242);
+
+			//text prehandle
+			ctx.font = style + " " + weight + " " + size+" "+family;
+			ctx.fillStyle = color;
+			ctx.textBaseline="top";
+
+			//处理换行
+			var x = 0;
+			var y = 0;
+
+			//默认字体宽度等于字体值
+			var absHeight = lineheight.slice(0,-2);
+			var canvasWidth = 448;
+			var singleTextWidth = 12;
+			for(var i = 0; i < wordStr.length; i++){
+				// 把字符串变成字数组，检测字符宽度是否超出面板
+				var lineText = wordStr[i].split('');
+				for(var j = 0; j < lineText.length; j++){
+					ctx.fillText(lineText[j],x,y);
+					singleTextWidth = parseInt(Math.floor(ctx.measureText(lineText[j]).width));
+					x += singleTextWidth;
+					// console.log('x:'+x+',y:'+y);
+					if(x > canvasWidth-singleTextWidth){
+						y = parseInt(y) + parseInt(absHeight);
+						x = 0;
+					}
+				}
+				x = 0;
+				y = parseInt(y) + parseInt(absHeight);
+			}
+
+			// 转为base64
+			var base64 = cvs.toDataURL();
+
+			// 发送成功状态
+			socket.emit('done',
+			{
+				'type':myType,
+				'from':fromTerm,
+				'to':uid,
+				'content':base64
+			});
+		}
+
+		socket.on('error', function() {
+		    socket = io.connect(host, {
+			  'force new connection': true
+			});
+		});
+
+		// 接受用户退出反馈
+		socket.on('logout',function(msg){
+			var terminals = msg.terminals;
+			var len = terminals.length;
+
+			$('#messages').prepend($('<li class="red">').text('有终端退出登录'));
+			for(var i = 0; i < len; i++){
+				$('#messages').prepend($('<li>').text("终端"+getTermsName(terminals[i].type)+"("+terminals[i].uid+")"+"["+getTermsStatus(terminals[i].status)+"]"));
+			}
+			$('#messages').prepend($('<li>').text('=========更新终端队列========='));
+		});
+
+		// 接受用户登录反馈
+		socket.on('login',function(msg){
+			var terminals = msg.terminals;
+			var len = terminals.length;
+
+			
+			$('#messages').prepend($('<li class="red">').text('新终端登录。'));
+			for(var i = 0; i < len; i++){
+				$('#messages').prepend($('<li>').text("终端"+getTermsName(terminals[i].type)+"("+terminals[i].uid+")"+"["+getTermsStatus(terminals[i].status)+"]"));
+			}
+			$('#messages').prepend($('<li>').text('=========当前连接终端队列========='));
+		});
+
+		// 接受截图
+		socket.on('preview',function(msg){
+			var terminals = msg.terminals;
+			var len = terminals.length;
+			
+			for(var i = 0; i < len; i++){
+				$('#messages').prepend($('<li>').text("终端"+getTermsName(terminals[i].type)+"("+terminals[i].uid+")"+"["+getTermsStatus(terminals[i].status)+"]"));
+			}
+			$('#messages').prepend($('<li>').text('=========当前连接终端队列========='));
+
+			var msg = msg.msg;
+			if(uid == msg.to){
+				$('#messages').prepend($('<li>').text("你被选中为绘图机器，对应申请终端为用户"+msg.from));
+				fromTerm = msg.from;
+				setInfo(msg.info);
+				draw();
+			}
+			return false;
+		});
+
+		// 截图完成，更新用户队列
+		socket.on('done',function(msg){
+			var terminals = msg.terminals;
+			var len = terminals.length;
+			var msg = msg.msg;
+			
+			// 返回当前用户，已完成，有内容
+			if(msg.from == uid && msg.content != 0){
+				$('#messages').append($('<li class="red">').text('绘图返回'));
+				// 显示当前队列
+				for(var i = 0; i < len; i++){
+					$('#messages').append($('<li>').text("终端"+getTermsName(terminals[i].type)+"("+terminals[i].uid+")"));
+				}
+				$('#messages').append($('<li>').text('==当前连接终端队列=='));
+			}
+		});
+
+		// 客户端重连
+		socket.on('reconnect',function(){
+			$('#messages').prepend($('<li class="red">').text('该设备重连'));
+			uid = getUid();
+			var type = $('#type').val();
+			myType = type;
+			socket.emit('login',
+			{
+				'uid':uid,
+				'type':type
+			});
+			$("#uid").text(uid);
+		});
+
+	</script>
+</body>
+</html>

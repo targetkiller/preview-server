@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="keywords" content="多终端,字体,预览" />
+	<meta name="arthor" content="tqtan" />
+	<meta name="description" content="多终端字体预览工具，可以实时预览pc,mac,ios,android的字体在线效果。" />
+	<title>Preview</title>
+	<link rel="stylesheet" type="text/css" href="/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+	<div class="header">
+		<div class="inner">
+			<a href="###" class="logo"><img src="images/logo.png" /></a>
+			<a href="javascript:void(0)" id="reload" class="hide">重新加载</a>
+			<p class="link-status-msg">连接中...</p>
+		</div>
+	</div>
+
+	<div class="control-wrap">
+		<div class="inner">
+			<div class="control-box">
+				<div class="hd">
+					<div class="select-wrap fontfamily">
+						<select name="family" id="family" title="字体">
+							<optgroup label="- safe list --------------------">
+								<option value="Arial" selected="selected">Arial</option>
+								<option value="Arial Black">Arial Black</option>
+								<option value="Comic Sans MS">Comic Sans MS</option>
+								<option value="Courier New">Courier New</option>
+								<option value="Georgia">Georgia</option>
+								<option value="Impact">Impact</option>
+								<option value="Times New Roman">Times New Roman</option>
+								<option value="Trebuchet MS">Trebuchet MS</option>
+								<option value="Verdana">Verdana</option>
+							</optgroup>
+							<optgroup label="- Win default ------------------">
+								<option value="Arial">Arial</option>
+								<option value="Arial Black">Arial Black</option>
+								<option value="Comic Sans MS">Comic Sans MS</option>
+								<option value="Courier New">Courier New</option>
+								<option value="Georgia">Georgia</option>
+								<option value="Impact">Impact</option>
+								<option value="Lucida Console">Lucida Console</option>
+								<option value="Lucida Sans Unicode">Lucida Sans Unicode</option>
+								<option value="Microsoft Sans Serif">Microsoft Sans Serif</option>
+								<option value="MS Mincho">MS Mincho</option>
+								<option value="Palatino Linotype">Palatino Linotype</option>
+								<option value="Symbol">Symbol</option>
+								<option value="Tahoma">Tahoma</option>
+								<option value="Times New Roman">Times New Roman</option>
+								<option value="Trebuchet MS">Trebuchet MS</option>
+								<option value="Verdana">Verdana</option>
+							</optgroup>
+							<optgroup label="- Mac default ------------------">
+								<option value="American Typewriter">American Typewriter</option>
+								<option value="Andale Mono">Andale Mono</option>
+								<option value="Arial">Arial</option>
+								<option value="Arial Black">Arial Black</option>
+								<option value="Arial Narrow">Arial Narrow</option>
+								<option value="Brush Script MT">Brush Script MT</option>
+								<option value="Capitals">Capitals</option>
+								<option value="Apple Chancery">Apple Chancery</option>
+								<option value="Baskerville">Baskerville</option>
+								<option value="Big Caslon">Big Caslon</option>
+								<option value="Charcoal">Charcoal</option>
+								<option value="Chicago">Chicago</option>
+								<option value="Comic Sans MS">Comic Sans MS</option>
+								<option value="Copperplate">Copperplate</option>
+								<option value="Courier">Courier</option>
+								<option value="Courier New">Courier New</option>
+								<option value="Didot">Didot</option>
+								<option value="Gadget">Gadget</option>
+								<option value="Georgia">Georgia</option>
+								<option value="Geneva">Geneva</option>
+								<option value="Gill Sans">Gill Sans</option>
+								<option value="Futura">Futura</option>
+								<option value="Helvetica">Helvetica</option>
+								<option value="Helvetica Neue">Helvetica Neue</option>
+								<option value="Herculanum">Herculanum</option>
+								<option value="Hoefler Text">Hoefler Text</option>
+								<option value="Impact">Impact</option>
+								<option value="Lucida Grande">Lucida Grande</option>
+								<option value="Marker Felt">Marker Felt</option>
+								<option value="Monaco">Monaco</option>
+								<option value="New York">New York</option>
+								<option value="Optima">Optima</option>
+								<option value="Papyrus">Papyrus</option>
+								<option value="Sand">Sand</option>
+								<option value="Skia">Skia</option>
+								<option value="Techno">Techno</option>
+								<option value="Textile">Textile</option>
+								<option value="Times">Times</option>
+								<option value="Times New Roman">Times New Roman</option>
+								<option value="Trebuchet MS">Trebuchet MS</option>
+								<option value="Verdana">Verdana</option>
+								<option value="Zapfino">Zapfino</option>
+							</optgroup>
+							<optgroup label="- Windows Vista ----------------">
+								<option value="Calibri">Calibri</option>
+								<option value="Cambria">Cambria</option>
+								<option value="Candara">Candara</option>
+								<option value="Consolas">Consolas</option>
+								<option value="Constantia">Constantia</option>
+								<option value="Corbel">Corbel</option>
+								<option value="Nyala">Nyala</option>
+								<option value="Segoe UI">Segoe UI</option>
+								<option value="Segoe Print">Segoe Print</option>
+								<option value="Segoe Script">Segoe Script</option>
+							</optgroup>
+							<optgroup label="- Google Fonts ----------------">
+								<option value="Cantarell">Cantarell</option>
+								<option value="Cardo">Cardo</option>
+								<option value="Crimson Text">Crimson Text</option>
+								<option value="Droid Sans">Droid Sans</option>
+								<option value="Droid Sans Mono">Droid Sans Mono</option>
+								<option value="Droid Serif">Droid Serif</option>
+								<option value="IM Fell">IM Fell</option>
+								<option value="Inconsolata">Inconsolata</option>
+								<option value="Josefin Sans Std Light">Josefin Sans Std Light</option>
+								<option value="Lobster">Lobster</option>
+								<option value="Molengo">Molengo</option>
+								<option value="Neuton">Neuton</option>
+								<option value="Nobile">Nobile</option>
+								<option value="OFL Sorts Mill Goudy TT">OFL Sorts Mill Goudy TT</option>
+								<option value="Old Standard TT">Old Standard TT</option>
+								<option value="Reenie Beanie">Reenie Beanie</option>
+								<option value="Tangerine">Tangerine</option>
+								<option value="Vollkorn">Vollkorn</option>
+								<option value="Yanone Kaffeesatz">Yanone Kaffeesatz</option>
+							</optgroup>
+						</select>
+					</div>
+					<div class="select-wrap">
+						<select name="size" id="size" title="字体大小">
+							<option value="12px">12px</option>
+							<option value="14px" selected="selected">14px</option>
+							<option value="15px">15px</option>
+							<option value="16px">16px</option>
+							<option value="17px">17px</option>
+							<option value="18px">18px</option>
+							<option value="19px">19px</option>
+							<option value="20px">20px</option>
+							<option value="21px">21px</option>
+							<option value="22px">22px</option>
+							<option value="23px">23px</option>
+							<option value="24px">24px</option>
+							<option value="25px">25px</option>
+							<option value="26px">26px</option>
+							<option value="27px">27px</option>
+							<option value="28px">28px</option>
+							<option value="29px">29px</option>
+							<option value="30px">30px</option>
+							<option value="36px">36px</option>
+							<option value="48px">48px</option>
+							<option value="60px">60px</option>
+							<option value="72px">72px</option>
+						</select>
+						<div class="size-icon-wrap">
+							<i class="icon-size"></i>
+						</div>
+					</div>
+					<div class="select-wrap">
+						<div class="font-style-wrap">
+							<a href="javascript:void(0)" id="weight" title="加粗">B</a>
+							<a href="javascript:void(0)" id="style" title="斜体">I</a>
+						</div>
+					</div>
+					<div class="select-wrap">
+						<input class="color" id="color"  title="文字色" value="#000000">
+						<i class="icon-color"></i>
+					</div>
+					<div class="select-wrap">
+						<input class="color" id="bgcolor"  title="背景色" value="#ffffff">
+						<i class="icon-bgcolor"></i>
+					</div>
+					<div class="select-wrap">
+						<select name="lineheight" id="lineheight"  title="行距">
+							<option value="6px">6px</option>
+							<option value="7px">7px</option>
+							<option value="8px">8px</option>
+							<option value="9px">9px</option>
+							<option value="10px">10px</option>
+							<option value="11px">11px</option>
+							<option value="12px">12px</option>
+							<option value="14px">14px</option>
+							<option value="15px">15px</option>
+							<option value="16px" selected="selected">16px</option>
+							<option value="17px">17px</option>
+							<option value="18px">18px</option>
+							<option value="19px">19px</option>
+							<option value="20px">20px</option>
+							<option value="21px">21px</option>
+							<option value="22px">22px</option>
+							<option value="23px">23px</option>
+							<option value="24px">24px</option>
+							<option value="25px">25px</option>
+							<option value="26px">26px</option>
+							<option value="27px">27px</option>
+							<option value="28px">28px</option>
+							<option value="29px">29px</option>
+							<option value="30px">30px</option>
+							<option value="36px">36px</option>
+							<option value="48px">48px</option>
+							<option value="60px">60px</option>
+							<option value="72px">72px</option>
+						</select>
+						<div class="lineheight-icon-wrap">
+							<i class="icon-lineheight"></i>
+						</div>
+					</div>
+					<a href="javascript:void(0)" id="css">CSS</a>
+					<a href="javascript:void(0)" id="reset">重置</a>
+					<a href="javascript:void(0)" id="submit">预览</a>
+					<textarea id="code" class="hide"></textarea>
+				
+				</div>
+				<div class="bd">
+					<textarea id="content">唧唧复唧唧，木兰当户织。不闻机杼声，惟闻女叹息。
+问女何所思，问女何所忆。女亦无所思，女亦无所忆。
+昨夜见军帖，可汗大点兵。军书十二卷，卷卷有爷名。
+爷无大儿，木兰无长兄。愿为市鞍马，从此替爷征。
+东市买骏马，西市买鞍鞯，南市买辔头，北市买长鞭。
+旦辞爷娘去，暮宿黄河边。
+不闻爷娘唤女声，但闻黄河流水鸣溅溅。
+旦辞黄河去，暮至黑山头。
+不闻爷娘唤女声，但闻燕山胡骑鸣啾啾。</textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 测试用 -->
+	<div class="messages-wrap slide-right">
+		<label>数据报表</label>
+		<ul id="messages"></ul>
+	</div>
+
+	<div class="show-wrap">
+		<div class="inner">
+			<div class="show-box" id="PC">
+				<div class="bd"><img id="PCimg" class="done-img" src="images/pc-default.png" /></div>
+				<div class="ft"><img src="images/PC.png" /></div>
+			</div>
+			<div class="show-box" id="MAC">
+				<div class="bd"><img id="MACimg" class="done-img" src="images/mac-default.png" /></div>
+				<div class="ft"><img src="images/MAC.png" /></div>
+			</div>
+			<div class="show-box" id="IOS">
+				<div class="bd"><img id="IOSimg" class="done-img" src="images/ios-default.png" /></div>
+				<div class="ft"><img src="images/IOS.png" /></div>
+			</div>
+			<div class="show-box" id="ANDROID">
+				<div class="bd"><img id="ANDROIDimg" class="done-img" src="images/android-default.png" /></div>
+				<div class="ft"><img src="images/ANDROID.png" /></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="footer">
+		Preview <a href="http://isux.tencent.com" target="_blank">@ISUX</a>
+	</div>
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="/js/jquery.js"></script>
+	<script type="text/javascript" src="/js/jscolor.js"></script>
+	<script type="text/javascript" src="/js/preview.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+/*
+ * @author:tqtan;
+ * @content:多终端字体预览工具Preview-link连接端样式;
+ * @date:2014/7/17;
+*/
+
+html, body, div, span, iframe, h1, h2, h3, h4, h5, h6, p, blockquote,a,address,
+em, img, ol, ul, li, fieldset, form, label, legend, table, tbody, tfoot, thead, tr, th, td,i,b,s {
+    margin:0; padding:0; border:0; font-weight:inherit; font-style:inherit; font-size:100%;font-family:Helvetica,'microsoft yahei',Arial,sans-serif;
+}
+ul,ol{list-style: none}
+a img { border:none;vertical-align: top; }
+a {text-decoration: none;}
+button {overflow:visible;padding:0;margin:0;border:0 none;background-color:transparent;}
+button::-moz-focus-inner { padding:0;}
+textarea,input{background:none;padding:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;-webkit-appearance:none;}
+input[type=password] {-webkit-text-security:disc;}
+textarea:focus,input:focus,button:focus{outline:none;}
+body {word-wrap:break-word;}
+* {-webkit-tap-highlight-color:rgba(0,0,0,0);}
+body{margin: 0;background-color: #fff;}
+.hide{display: none!important;}
+
+.container{width: 80%;margin: 0 auto;}
+.container .uid-wrap{text-align: center;}
+
+.opt-wrap{text-align: center;}
+#link{display: inline-block;width: 80px;height: 30px;background-color: #1abc9c;color: #fff;cursor: pointer;}
+#link:hover{background-color: #16a085;}
+
+.qrcode-wrap{text-align: center;}
+
+.messages-wrap{position: relative;width: 100%}
+.messages-wrap .brand{position: absolute;right: 1px;top: 1px;height: 20px;line-height: 20px;text-align: center;background-color: #1abc9c;
+	padding: 5px 8px;color: #fff;}
+.messages-wrap #messages{list-style: none;border: 1px solid #333;height: 300px;padding: 20px 0 20px 20px;overflow: auto;}
+
+.red{color: red;}
+
+#logout{float: right;color: #fff;background-color: #FB070D;padding: 5px 8px;font-size: 13px;}

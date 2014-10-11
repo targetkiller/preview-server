@@ -1,0 +1,9 @@
+{
+  "name": "preview-server",
+  "version": "0.0.1",
+  "description": "preview-server",
+  "dependencies": {
+    "express": "^4.5.1",
+    "socket.io": "^0.9.17"
+  }
+}
