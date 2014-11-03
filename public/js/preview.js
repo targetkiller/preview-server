@@ -329,6 +329,10 @@ $('#submit').click(function(){
 
 });
 
+$('#fresh-btn').click(function(){
+	socket.emit('freshterms',null);
+});
+
 // 接受用户登录反馈
 socket.on('login',function(msg){
 	$('.link-status-msg').text('连接成功！').addClass('link-status-msg-active');
@@ -404,5 +408,7 @@ socket.on('reconnect',function(){
 		'type':myType
 	});
 });
+
+
 
 

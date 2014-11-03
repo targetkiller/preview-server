@@ -12,7 +12,7 @@
 			<a href="javascript:;" id="logout">退出登录</a>
 		</div>
 		<div class="ua-wrap">设备:<span id="ua">无</span></div>
-		<div class="opt-wrap">
+		<div class="opt-wrap hide">
 			选择设备类型:
 			<select id="type">
 				<option value="0">PC</option>
@@ -27,7 +27,7 @@
 		</div>
 		<div class="messages-wrap" >
 			<ul id="messages"></ul>
-			<label class="brand">报表</label>
+			<label class="brand">报表</label >
 		</div>
 		<canvas id="canvas" width="448" height="242" class="hide"></canvas>
 	</div>
@@ -356,14 +356,20 @@
 		socket.on('reconnect',function(){
 			$('#messages').prepend($('<li class="red">').text('该设备重连'));
 			uid = getUid();
-			var type = $('#type').val();
-			myType = type;
+			// var type = $('#type').val();
+			// myType = type;
 			socket.emit('login',
 			{
 				'uid':uid,
-				'type':type
+				'type':myType
 			});
 			$("#uid").text(uid);
+		});
+
+		// 刷新重连
+		socket.on('fresh',function(){
+			window.onbeforeunload=false;
+			location.reload();
 		});
 
 	</script>

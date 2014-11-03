@@ -81,7 +81,11 @@ io.on('connection',function(socket){
 		// 向所有终端发布消息
 		socket.broadcast.emit('done',{'msg':msg,'terminals':terminals});
 		socket.emit('done',{'msg':msg,'terminals':terminals});
-	});  
+	}); 
+
+	socket.on('freshterms',function(){
+		socket.broadcast.emit('fresh',null);
+	});
 
 });
 
