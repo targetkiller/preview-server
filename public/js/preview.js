@@ -3,7 +3,7 @@
  * @content:多终端字体预览工具;
  * @publish_date:2014/8/5;
  */
-// var host = 'ws://localhost:3000';
+var host = 'ws://www.isux.us:3000';
 var socket;
 var terminals = new Array();
 var myType;
@@ -27,7 +27,7 @@ if(io === undefined){
 	delete io;
 }
 else{
-	socket = io.connect();
+	socket = io.connect(host);
 }
 
 // 页面载入自动连接

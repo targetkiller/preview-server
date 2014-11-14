@@ -8,14 +8,16 @@
 .hide{display: none!important;}
 
 .header{background-color: #292a2c;height: 88px;width: 100%;box-shadow: 0 1px 2px #464646;background-image: url(../images/bg-hd.png);background-repeat: repeat-x;}
+.header .logo{display: block;height: 60px;overflow: hidden;}
 .header .logo img{display: block;}
+.header .logo-txt{color: #fff;font-size: 14px;position: absolute;left: 20px;top: 58px;height: 27px;line-height: 27px;}
 #link,#relink,#reload{position: absolute;right: 0;top: 25px;display: inline-block;text-align: center;line-height: 24px;
 	color: #fff;background-color: #16a085;text-decoration: none;padding: 5px 10px;transition:all .2s ease-in;-webkit-transition:all .2s ease-in;
 	border-radius: 3px;}
 #link:hover,#relink:hover,#reload:hover{background-color: #1abc9c;}
 
-.control-wrap{height: 310px;width: 100%;background-color: #383839;background-image: url(../images/bg.png);}
-.control-box{width: 980px;height: 265px;background-color: #fff;position: absolute;top: 70px;}
+.control-wrap{height: 280px;width: 100%;background-color: #383839;background-image: url(../images/bg.png);}
+.control-box{width: 980px;height: 265px;background-color: #fff;position: absolute;top: 46px;}
 .control-box .hd{height: 35px;background-color: #c2c2c2;}
 #code{position: absolute; top: 35px; right: 10px; resize: none; width: 280px; height: 120px;padding: 15px;font-family: Microsoft yahei;}
 #family,
@@ -25,7 +27,7 @@
 #size{height: 24px;border-radius: 3px;position: absolute;top: 6px;border: 0px;padding: 0;}
 #lineheight:focus,#size:focus,#family:focus{outline: none;}
 #family{left: 10px;width: 98px;}
-#size{left: 135px;width: 70px;}
+#size{left: 140px;width: 70px;}
 .font-style-wrap{position: absolute;top: 6px;border-radius: 3px;height: 24px;padding: 0;left: 220px;background-color: #fff;
 	width: 60px;font-size: 0;letter-spacing: -5px;}
 #weight,
@@ -59,7 +61,7 @@
 #content{resize:none;width: 960px;height: 210px;padding: 10px;border: none;}
 #content:focus{outline: none;}
 
-.show-wrap{height: 694px;padding-top: 53px;width: 100%;background-color: #e9e9e9;font-size: 0;letter-spacing: -5px;}
+.show-wrap{height: 662px;padding-top: 50px;width: 100%;background-color: #e9e9e9;font-size: 0;letter-spacing: -5px;}
 .show-box{width: 478px;height: 308px;border: 1px solid #e2e2e1;background-color: #fff;vertical-align: top;
 	display: inline-block;*display: inline;*zoom:1;font-size: 12px;letter-spacing: 0;transition:all .4s ease-in;-webkit-transition:all .4s ease-in;
 	border-bottom-color: #fb070d;border-bottom-width: 2px;}
@@ -69,9 +71,9 @@
 .show-box .ft{height: 36px;position: relative;}
 .show-box .ft img{position: absolute;right: 0;top: 0;height: 36px;width: 144px;}
 #PC,#IOS{margin-right: 19px;}
-#PC,#MAC{margin-bottom: 20px;}
+#PC,#MAC{margin-bottom: 19px;}
 
-.footer{background-color: #292a2c;height: 88px;width: 100%;box-shadow: 0 -1px 2px #464646;
+.footer{background-color: #292a2c;height: 88px;width: 100%;box-shadow: 0 -1px 2px #464646;position: relative;
 	line-height: 88px;text-align: center;color: #fff;font-size: 16px;}
 .footer a{color: #fff;text-decoration: none;}
 .footer a:hover{text-decoration: underline;}
@@ -88,8 +90,9 @@
 .link-status-msg{color: #fff;position: absolute;top: 33px;right: 0;font-family: Microsoft yahei;font-size:18px;}
 .link-status-msg-active{animation:bounceInUp 1.5s ease-in;-webkit-animation:bounceInUp 1.5s ease-in;}
 
-.fresh-btn{position: absolute;top: -24px;right: 0;font-size: 12px;width: 60px;height: 24px;line-height: 24px;background-color: #700;color: #fff;text-align: center;border-radius: 4px 0 0 0;cursor: pointer;}
-.fresh-btn:hover{background-color: #800;}
+.footer .fresh-btn{position: absolute;bottom: 0px;left: 50%;margin-left: -30px;font-size: 12px;width: 60px;height: 24px;line-height: 24px;background-color: #16a085;color: #fff;text-align: center;cursor: pointer;
+  vertical-align: middle;display: inline-block;}
+.footer .fresh-btn:hover{background-color: #1abc9c;text-decoration: none;}
 
 	@-webkit-keyframes bounceInUp {
   0%, 60%, 75%, 90%, 100% {

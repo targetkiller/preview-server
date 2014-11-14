@@ -56,7 +56,8 @@ io.on('connection',function(socket){
 		var flag = 0;//标记是否找到终端，0为未找到
 
 		// 查找是否有空闲终端
-		for(var i = 0;i < terminals.length; i++){
+		// 从后开始搜索，保证最新的设备状态
+		for(var i = terminals.length-1;i > 0; i--){
 			if(terminals[i].type == msg.type){
 				// 确认目标终端uid
 				flag = 1;
