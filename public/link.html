@@ -32,7 +32,10 @@
 		<canvas id="canvas" width="448" height="242" class="hide"></canvas>
 	</div>
 	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
-	<script type="text/javascript" src="/js/jquery.js"></script>
+	<script type="text/javascript" src="http://www.youziku.com/UserDownFile/jquery.min.js"></script>
+	<script type="text/javascript" src="http://www.youziku.com/UserDownFile/jquery.md5.js"></script>
+
+	<!-- // <script type="text/javascript" src="/js/jquery.js"></script> -->
 	<script type="text/javascript">
 		// var host = 'ws://localhost:3000';
 		var socket;
@@ -120,6 +123,80 @@
 			return false;
 		});
 		
+		// youziku
+		// Source-Han-Medium
+		function ftSourceHanMedium(txt) {
+	        var resultStr = txt;
+	        var md5 = "";
+	        resultStr = Trim(resultStr);
+	        resultStr = SelectWord(resultStr);
+	        md5 = $.md5("fb32eac10e9f4d38a65da6b5577be05c"+"Source-Han-Sans-Medium" + resultStr);
+	        // 同步拉取，确保能拉取
+	        $.ajaxSettings.async = false;
+	        $.getJSON("http://www.youziku.com/webfont/CSSPOST?jsoncallback=?", { "id": md5, "guid": "fb32eac10e9f4d38a65da6b5577be05c", "type": "5" }, function (json) {
+	            if (json.result == 0) {/*alert("需要生成");*/
+	                $.post("http://www.youziku.com/webfont/PostCorsCreateFont", { "name": "Source-Han-Sans-Medium", "gid": "fb32eac10e9f4d38a65da6b5577be05c", "type": "5", "text": resultStr }, function (json) {
+	                if (json == "0") { /*alert("参数不对");*/
+	                } else if (json == "2") {/*alert("超过每日生成字体数的上限");*/
+	                } else if (json == "3") { /*alert("当前正在生成请稍后");*/
+	                } else {/*alert("正在生成");*/
+	                }
+	            });
+	            }
+	            else {/*alert("下载css文件");*/
+	                loadExtentFile("http://www.youziku.com/webfont/css?id=" + md5 + "&guid=" + "fb32eac10e9f4d38a65da6b5577be05c" + "&type=5");
+	            }
+	        });
+	    }
+		// Source-Han-Normal
+		function ftSourceHanNormal(txt) {
+	        var resultStr = txt;
+	        var md5 = "";
+	        resultStr = Trim(resultStr);
+	        resultStr = SelectWord(resultStr);
+	        md5 = $.md5("02c0a71621fb48369c5dbb1a5cdd7f11"+"Source-Han-Normal" + resultStr);
+	        // 同步拉取，确保能拉取
+	        $.ajaxSettings.async = false;
+	        $.getJSON("http://www.youziku.com/webfont/CSSPOST?jsoncallback=?", { "id": md5, "guid": "02c0a71621fb48369c5dbb1a5cdd7f11", "type": "5" }, function (json) {
+	            if (json.result == 0) {/*alert("需要生成");*/
+	                $.post("http://www.youziku.com/webfont/PostCorsCreateFont", { "name": "Source-Han-Normal", "gid": "02c0a71621fb48369c5dbb1a5cdd7f11", "type": "5", "text": resultStr }, function (json) {
+	                if (json == "0") { /*alert("参数不对");*/
+	                } else if (json == "2") {/*alert("超过每日生成字体数的上限");*/
+	                } else if (json == "3") { /*alert("当前正在生成请稍后");*/
+	                } else {/*alert("正在生成");*/
+	                }
+	            });
+	            }
+	            else {/*alert("下载css文件");*/
+	                loadExtentFile("http://www.youziku.com/webfont/css?id=" + md5 + "&guid=" + "02c0a71621fb48369c5dbb1a5cdd7f11" + "&type=5");
+	            }
+	        });
+	    }
+		// Source-Han-Light
+	    function ftSourceHanLight(txt) {
+	        var resultStr = txt;
+	        var md5 = "";
+	        resultStr = Trim(resultStr);
+	        resultStr = SelectWord(resultStr);
+	        md5 = $.md5("a6caa41ae65c42b9aea1d7af37580849"+"Source-Han-Light" + resultStr);
+	        // 同步拉取，确保能拉取
+	        $.ajaxSettings.async = false;
+	        $.getJSON("http://www.youziku.com/webfont/CSSPOST?jsoncallback=?", { "id": md5, "guid": "a6caa41ae65c42b9aea1d7af37580849", "type": "5" }, function (json) {
+	            if (json.result == 0) {/*alert("需要生成");*/
+	                $.post("http://www.youziku.com/webfont/PostCorsCreateFont", { "name": "Source-Han-Light", "gid": "a6caa41ae65c42b9aea1d7af37580849", "type": "5", "text": resultStr }, function (json) {
+	                if (json == "0") { /*alert("参数不对");*/
+	                } else if (json == "2") {/*alert("超过每日生成字体数的上限");*/
+	                } else if (json == "3") { /*alert("当前正在生成请稍后");*/
+	                } else {/*alert("正在生成");*/
+	                }
+	            });
+	            }
+	            else {/*alert("下载css文件");*/
+	                loadExtentFile("http://www.youziku.com/webfont/css?id=" + md5 + "&guid=" + "a6caa41ae65c42b9aea1d7af37580849" + "&type=5");
+	            }
+	        });
+	    }
+
 		function getUAType(){
 			var ua = navigator && navigator.userAgent;
 			// 如果ua存在
@@ -168,6 +245,43 @@
 			lineheight = info.lineheight;
 			color = info.color;
 			bgcolor = info.bgcolor;
+
+			getFontType(family);
+		}
+
+		function getFontType(family){
+			// console.log(family);
+			if(family == 'Source-Han-Normal'){
+				ftSourceHanNormal(family);
+				$('#canvas').attr('class','hide').addClass('Source-Han-Normal');
+				setTimeout(function(){
+					var _family = $('.Source-Han-Normal').css('font-family');
+					window.family = _family;
+					draw();
+				},1000);
+			}
+			else if(family == 'Source-Han-Medium'){
+				ftSourceHanMedium(family);
+				$('#canvas').attr('class','hide').addClass('Source-Han-Sans-Medium');
+				setTimeout(function(){
+					var _family = $('.Source-Han-Sans-Medium').css('font-family');
+					window.family = _family;
+					draw();
+				},1000);
+			}
+			else if(family == 'Source-Han-Light'){
+				ftSourceHanLight(family);
+				$('#canvas').attr('class','hide').addClass('Source-Han-Light');
+				setTimeout(function(){
+					var _family = $('.Source-Han-Light').css('font-family');
+					window.family = _family;
+					draw();
+				},1000);
+			}
+			else{
+				$('#canvas').attr('class','hide');
+				draw();
+			}
 		}
 
 		function getInfo(){
@@ -241,6 +355,7 @@
 			ctx.fillStyle = bgcolor;
 			ctx.fillRect(0,0,448,242);
 
+			console.log(family);
 			//text prehandle
 			ctx.font = style + " " + weight + " " + size+" "+family;
 			ctx.fillStyle = color;
@@ -330,7 +445,11 @@
 				$('#messages').prepend($('<li>').text("你被选中为绘图机器，对应申请终端为用户"+msg.from));
 				fromTerm = msg.from;
 				setInfo(msg.info);
-				draw();
+
+				// draw()加入setInfo()，确保字体更改
+				// setTimeout(function(){
+				// 	draw();
+				// },10);
 			}
 			return false;
 		});

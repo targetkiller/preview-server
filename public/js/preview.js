@@ -4,6 +4,7 @@
  * @publish_date:2014/8/5;
  */
 var host = 'ws://www.isux.us:3000';
+// var host = 'ws://localhost:3000';
 var socket;
 var terminals = new Array();
 var myType;
@@ -54,6 +55,7 @@ window.onunload = function(event) {
 		socket.disconnect();
 	}
 }
+
 
 // 加载异常
 function loadError(){
@@ -316,6 +318,7 @@ $('#style').click(function(){
 });
 
 $('#submit').click(function(){
+	$('.pop-tips').addClass('pop-tips-active');
 	if(uid==0||!uid){
 		alert('请先连接！');
 	}
@@ -327,6 +330,10 @@ $('#submit').click(function(){
 		});
 	}
 
+});
+
+$('.pop-tips .close').click(function(){
+	$('.pop-tips').addClass('hide');
 });
 
 $('#fresh-btn').click(function(){

@@ -13,7 +13,7 @@
 	<div class="header">
 		<div class="inner">
 			<a href="###" class="logo"><img src="http://www.isux.us:3000/images/logo.png" /></a>
-			<small class="logo-txt">多终端预览平台</small>
+			<small class="logo-txt Source-Han-Light">多终端预览平台</small>
 			<a href="javascript:void(0)" id="reload" class="hide">重新加载</a>
 			<p class="link-status-msg">连接中...</p>
 		</div>
@@ -23,10 +23,29 @@
 		<div class="inner">
 			<div class="control-box">
 				<div class="hd">
+					<a class="fresh-btn" id="fresh-btn" title="若终端等待，请刷新终端。">刷新终端</a>
 					<div class="select-wrap fontfamily">
 						<select name="family" id="family" title="字体">
+							<optgroup label="- hot list --------------------">
+								<option value="Source-Han-Normal" selected="selected">Source-Han-normal</option>
+								<option value="Source-Han-Medium" selected="selected">Source-Han-medium</option>
+								<option value="Source-Han-Light" selected="selected">Source-Han-Light</option>
+								<option value="Helvetica Neue">Helvetica Neue</option>
+								<option value="Helvetica Neue Light">Helvetica Neue Light</option>
+								<option value="Helvetica">Helvetica</option>
+								<option value="Microsoft yahei">Microsoft yahei</option>
+								<option value="Arial">Arial</option>
+								<option value="Arial Black">Arial Black</option>
+								<option value="Comic Sans MS">Comic Sans MS</option>
+								<option value="Georgia">Georgia</option>
+								<option value="Impact">Impact</option>
+								<option value="Times New Roman">Times New Roman</option>
+								<option value="Verdana">Verdana</option>
+								<option value="Simsum">Simsum</option>
+								<option value="nono sans">nono sans</option>
+							</optgroup>
 							<optgroup label="- safe list --------------------">
-								<option value="Arial" selected="selected">Arial</option>
+								<option value="Arial">Arial</option>
 								<option value="Arial Black">Arial Black</option>
 								<option value="Comic Sans MS">Comic Sans MS</option>
 								<option value="Courier New">Courier New</option>
@@ -215,10 +234,10 @@
 					<a href="javascript:void(0)" id="reset">重置</a>
 					<a href="javascript:void(0)" id="submit">预览</a>
 					<textarea id="code" class="hide"></textarea>
-				
+					<div class="pop-tips" title="关闭">tips:若终端返回延迟，请点击右方刷新终端～<a href="javascript:;" class="close">×</a></div>
 				</div>
 				<div class="bd">
-					<textarea id="content">唧唧复唧唧，木兰当户织。不闻机杼声，惟闻女叹息。
+					<textarea id="content" class="Source-Han-Light">唧唧复唧唧，木兰当户织。不闻机杼声，惟闻女叹息。
 问女何所思，问女何所忆。女亦无所思，女亦无所忆。
 昨夜见军帖，可汗大点兵。军书十二卷，卷卷有爷名。
 爷无大儿，木兰无长兄。愿为市鞍马，从此替爷征。
@@ -261,11 +280,13 @@
 	</div>
 
 	<div class="footer">
-		多终端字体预览平台NAMI <a href="http://isux.tencent.com" target="_blank">@ISUX</a>
-		<a class="fresh-btn" id="fresh-btn" title="若终端等待，请刷新终端。">刷新终端</a>
+		<a href="http://isux.tencent.com" target="_blank"><img class="isuxlogo" src="http://www.isux.us:3000/images/isux.png"></a>
+		<a href="http://isux.oa.com/tonylab" target="_blank"><img class="tonylogo" src="http://www.isux.us:3000/images/tony.png"></a>
 	</div>
 	<script type="text/javascript" src="http://www.isux.us:3000/socket.io/socket.io.js"></script>
-	<script type="text/javascript" src="http://www.isux.us:3000/js/jquery.js"></script>
+	<script type="text/javascript" src="http://www.youziku.com/UserDownFile/jquery.min.js"></script>
+	<script type="text/javascript" src="http://www.youziku.com/UserDownFile/jquery.md5.js"></script>
+	<!-- <script type="text/javascript" src="http://www.isux.us:3000/js/jquery.js"></script> -->
 	<script type="text/javascript" src="http://www.isux.us:3000/js/jscolor.js"></script>
 	<script type="text/javascript" src="http://www.isux.us:3000/js/preview.js"></script>
 </body>
