@@ -14,12 +14,12 @@ var testLinkTime = 5000;
 var defaultText = "唧唧复唧唧，木兰当户织。不闻机杼声，惟闻女叹息。\n问女何所思，问女何所忆。女亦无所思，女亦无所忆。\n昨夜见军帖，可汗大点兵。军书十二卷，卷卷有爷名。\n阿爷无大儿，木兰无长兄。愿为市鞍马，从此替爷征。\n东市买骏马，西市买鞍鞯，南市买辔头，北市买长鞭。\n旦辞爷娘去，暮宿黄河边。\n不闻爷娘唤女声，但闻黄河流水鸣溅溅。\n旦辞黄河去，暮至黑山头。\n不闻爷娘唤女声，但闻燕山胡骑鸣啾啾。";
 var wordStr = defaultText;//文本
 var family = "Arial";//字体
-var size = "14px";//尺寸
+var size = "20px";//尺寸
 var weight = "normal";//字重
 var style = "normal";//字形
 var color = "#000";//颜色
 var bgcolor = "#fff";//背景色
-var lineheight = "16px";//行高
+var lineheight = "20px";//行高
 
 // 检查是否加在到socket.js
 if(io === undefined){
